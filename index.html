@@ -1,0 +1,1548 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+<title>Quartz Rehearsal Diary｜为了我心爱的JJ，我的mtk我来了</title>
+<style>
+:root{
+  --ink:#2e2940;
+  --sub:#756b83;
+  --paper:#fffaf7;
+  --glass:rgba(255,255,255,.78);
+  --glass2:rgba(255,255,255,.58);
+  --line:rgba(83,61,120,.18);
+  --rose:#eda1b6;
+  --rose2:#ffdce4;
+  --violet:#8068c8;
+  --violet2:#c9bef4;
+  --blue:#84c7de;
+  --gold:#e6bf63;
+  --green:#98d6bc;
+  --night:#51416f;
+  --shadow:0 18px 45px rgba(49,36,78,.16);
+  --radius:24px;
+}
+*{box-sizing:border-box}
+html,body{height:100%}
+body{
+  margin:0;
+  min-height:100vh;
+  color:var(--ink);
+  font-family:"Hiragino Sans GB","Microsoft YaHei","Noto Sans SC",system-ui,sans-serif;
+  background:
+    radial-gradient(circle at 9% 8%,rgba(255,220,228,.96),transparent 29%),
+    radial-gradient(circle at 88% 12%,rgba(201,190,244,.92),transparent 30%),
+    radial-gradient(circle at 55% 88%,rgba(132,199,222,.55),transparent 35%),
+    linear-gradient(135deg,#fff8f4,#f5f1ff 46%,#effaff);
+  overflow-x:hidden;
+}
+body.night{
+  background:
+    radial-gradient(circle at 14% 12%,rgba(128,104,200,.36),transparent 30%),
+    radial-gradient(circle at 86% 10%,rgba(237,161,182,.28),transparent 28%),
+    radial-gradient(circle at 50% 90%,rgba(132,199,222,.18),transparent 36%),
+    linear-gradient(135deg,#241f34,#3c3158 48%,#263a4a);
+  color:#f9f2ff;
+}
+body::before{
+  content:"";
+  position:fixed;
+  inset:0;
+  pointer-events:none;
+  background-image:
+    linear-gradient(rgba(255,255,255,.46) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(255,255,255,.46) 1px,transparent 1px);
+  background-size:34px 34px;
+  mask-image:linear-gradient(to bottom,black,transparent 84%);
+}
+body.night::before{opacity:.22}
+button,input,textarea,select{font:inherit}
+button{
+  border:0;
+  cursor:pointer;
+  border-radius:999px;
+  padding:11px 17px;
+  font-weight:800;
+  color:#fff;
+  background:linear-gradient(135deg,var(--violet),var(--rose));
+  box-shadow:0 12px 24px rgba(128,104,200,.22);
+  transition:.18s ease;
+}
+button:hover{transform:translateY(-2px);filter:brightness(1.03)}
+button:disabled{opacity:.45;cursor:not-allowed;transform:none;filter:none}
+button.secondary{
+  color:#65527f;
+  background:rgba(255,255,255,.74);
+  border:1px solid var(--line);
+  box-shadow:none;
+}
+body.night button.secondary{
+  color:#f5ecff;
+  background:rgba(255,255,255,.12);
+  border-color:rgba(255,255,255,.18);
+}
+button.small{padding:8px 12px;font-size:13px}
+button.danger{background:linear-gradient(135deg,#9f5c72,#d37b90)}
+select,input,textarea{
+  width:100%;
+  border:1px solid var(--line);
+  border-radius:18px;
+  padding:12px 14px;
+  color:var(--ink);
+  background:rgba(255,255,255,.72);
+  outline:none;
+}
+body.night select,body.night input,body.night textarea{
+  color:#f9f2ff;
+  background:rgba(255,255,255,.1);
+  border-color:rgba(255,255,255,.18);
+}
+textarea{min-height:120px;resize:vertical;line-height:1.7}
+.app{
+  position:relative;
+  z-index:1;
+  width:min(1280px,calc(100% - 28px));
+  margin:0 auto;
+  padding:18px 0 34px;
+}
+.glass{
+  background:var(--glass);
+  border:1px solid rgba(255,255,255,.72);
+  box-shadow:var(--shadow);
+  backdrop-filter:blur(18px);
+  border-radius:var(--radius);
+}
+body.night .glass{
+  background:rgba(38,31,56,.72);
+  border-color:rgba(255,255,255,.14);
+}
+.otome-shell{
+  display:grid;
+  grid-template-columns:280px 1fr;
+  gap:18px;
+  min-height:calc(100vh - 36px);
+}
+.sidebar{
+  padding:16px;
+  display:flex;
+  flex-direction:column;
+  gap:14px;
+  position:sticky;
+  top:12px;
+  height:calc(100vh - 24px);
+}
+.logo{
+  padding:16px;
+  border-radius:22px;
+  background:
+    radial-gradient(circle at 80% 10%,rgba(255,255,255,.55),transparent 28%),
+    linear-gradient(135deg,rgba(255,220,228,.82),rgba(201,190,244,.72));
+}
+body.night .logo{background:rgba(255,255,255,.08)}
+.logo .badge{
+  display:inline-flex;
+  gap:8px;
+  align-items:center;
+  padding:7px 11px;
+  border-radius:999px;
+  background:rgba(255,255,255,.55);
+  color:#674e91;
+  font-weight:900;
+  font-size:12px;
+  letter-spacing:.04em;
+}
+body.night .logo .badge{background:rgba(255,255,255,.12);color:#f8eeff}
+.logo h1{
+  margin:12px 0 6px;
+  font-size:24px;
+  line-height:1.08;
+  letter-spacing:-.03em;
+}
+.logo p{margin:0;color:var(--sub);line-height:1.65;font-size:13px}
+body.night .logo p{color:#d8cde8}
+.nav-title{font-weight:900;color:#5f4c82}
+body.night .nav-title{color:#f7edff}
+.nav{
+  display:grid;
+  gap:7px;
+  overflow:auto;
+  padding-right:2px;
+}
+.nav button{
+  width:100%;
+  text-align:left;
+  color:var(--ink);
+  background:rgba(255,255,255,.62);
+  box-shadow:none;
+  border:1px solid transparent;
+  padding:10px 13px;
+}
+body.night .nav button{color:#f7edff;background:rgba(255,255,255,.08)}
+.nav button.active{
+  color:#fff;
+  background:linear-gradient(135deg,#8068c8,#eda1b6);
+  box-shadow:0 12px 24px rgba(128,104,200,.18);
+}
+.mini-status{
+  padding:13px;
+  border-radius:20px;
+  background:linear-gradient(135deg,rgba(255,220,228,.62),rgba(201,190,244,.48));
+}
+body.night .mini-status{background:rgba(255,255,255,.08)}
+.mini-row{display:grid;grid-template-columns:58px 1fr;gap:10px;align-items:center}
+.avatar{
+  width:58px;
+  height:58px;
+  border-radius:20px;
+  display:grid;
+  place-items:center;
+  color:#fff;
+  font-weight:900;
+  font-size:26px;
+  box-shadow:0 12px 24px rgba(60,42,90,.18);
+  overflow:hidden;
+}
+.avatar svg{width:100%;height:100%;display:block}
+.sub,.lead,.explain{color:var(--sub);line-height:1.78}
+body.night .sub,body.night .lead,body.night .explain{color:#d8cde8}
+.progress{height:11px;border-radius:999px;background:rgba(128,104,200,.15);overflow:hidden}
+.progress span{
+  display:block;
+  height:100%;
+  width:0;
+  border-radius:inherit;
+  background:linear-gradient(90deg,var(--rose),var(--violet),var(--blue));
+  transition:.35s ease;
+}
+.content{min-width:0}
+.topbar{
+  display:grid;
+  grid-template-columns:1.25fr .75fr;
+  gap:18px;
+  margin-bottom:18px;
+}
+.hero{
+  padding:22px;
+  position:relative;
+  overflow:hidden;
+}
+.hero::after{
+  content:"REHEARSAL";
+  position:absolute;
+  right:-20px;
+  bottom:-28px;
+  font-family:Georgia,serif;
+  font-size:72px;
+  letter-spacing:.06em;
+  color:rgba(128,104,200,.08);
+}
+.hero h2{
+  margin:0 0 8px;
+  font-size:clamp(28px,4vw,44px);
+  line-height:1.05;
+  letter-spacing:-.04em;
+}
+.top-actions,.toolbar,.choices{display:flex;flex-wrap:wrap;gap:10px;margin-top:14px}
+.dashboard{padding:18px;display:grid;gap:12px}
+.statline{display:flex;justify-content:space-between;gap:10px;margin-bottom:7px;font-weight:900}
+.date{font-size:13px;color:var(--sub)}
+body.night .date{color:#d8cde8}
+.panel{display:none;padding:22px;margin-bottom:18px}
+.panel.active{display:block;animation:fade .22s ease}
+@keyframes fade{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+h2{margin:0 0 8px;font-size:28px}
+h3{margin:18px 0 10px}
+.grid{display:grid;gap:14px}
+.grid.two{grid-template-columns:repeat(2,minmax(0,1fr))}
+.grid.three{grid-template-columns:repeat(3,minmax(0,1fr))}
+.grid.four{grid-template-columns:repeat(4,minmax(0,1fr))}
+.card{
+  border:1px solid var(--line);
+  border-radius:20px;
+  padding:17px;
+  background:rgba(255,255,255,.62);
+}
+body.night .card{background:rgba(255,255,255,.08);border-color:rgba(255,255,255,.14)}
+.pill{
+  display:inline-flex;
+  padding:5px 10px;
+  border-radius:999px;
+  background:rgba(128,104,200,.12);
+  color:#685191;
+  font-weight:900;
+  font-size:12px;
+}
+body.night .pill{background:rgba(255,255,255,.12);color:#f7edff}
+.example{
+  padding:12px 14px;
+  border-left:5px solid var(--rose);
+  background:rgba(255,246,250,.76);
+  border-radius:14px;
+  margin:10px 0;
+  line-height:1.75;
+}
+body.night .example{background:rgba(255,255,255,.08)}
+.jp{font-size:21px;font-weight:900}
+.kana-table{width:100%;border-collapse:separate;border-spacing:8px}
+.kana-table th{color:#6f5b91;font-size:13px}
+body.night .kana-table th{color:#e8ddff}
+.kana-cell{
+  text-align:center;
+  padding:10px 5px;
+  border-radius:16px;
+  background:rgba(255,255,255,.72);
+  border:1px solid var(--line);
+  cursor:pointer;
+  transition:.15s ease;
+}
+body.night .kana-cell{background:rgba(255,255,255,.08);border-color:rgba(255,255,255,.14)}
+.kana-cell:hover{transform:translateY(-2px);box-shadow:0 10px 20px rgba(128,104,200,.12)}
+.kana{font-size:27px;font-weight:900}
+.romaji{font-size:12px;color:var(--sub)}
+body.night .romaji{color:#d8cde8}
+.word-list{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.word{padding:14px;border-radius:18px;background:rgba(255,255,255,.62);border:1px solid var(--line)}
+body.night .word{background:rgba(255,255,255,.08);border-color:rgba(255,255,255,.14)}
+.word b{font-size:20px}
+.quiz-question{font-size:24px;font-weight:900}
+.option{
+  display:block;
+  width:100%;
+  text-align:left;
+  margin:8px 0;
+  color:var(--ink);
+  background:rgba(255,255,255,.75);
+  border:1px solid var(--line);
+  box-shadow:none;
+}
+body.night .option{color:#f9f2ff;background:rgba(255,255,255,.08);border-color:rgba(255,255,255,.14)}
+.option.correct{background:rgba(152,214,188,.72);color:#20362c}
+.option.wrong{background:rgba(237,161,182,.62);color:#442432}
+.note-list,.review-list,.memory-list{display:grid;gap:10px;margin-top:14px}
+.note-item,.memory{
+  padding:13px;
+  border-radius:16px;
+  background:rgba(255,255,255,.62);
+  border:1px solid var(--line);
+  line-height:1.65;
+  white-space:pre-wrap;
+}
+body.night .note-item,body.night .memory{background:rgba(255,255,255,.08);border-color:rgba(255,255,255,.14)}
+.character-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px}
+.char-card{position:relative;overflow:hidden;cursor:pointer;min-height:260px}
+.char-card.selected{outline:3px solid rgba(237,161,182,.8)}
+.char-portrait{
+  height:118px;
+  border-radius:18px;
+  overflow:hidden;
+  margin-bottom:12px;
+  background:linear-gradient(135deg,rgba(255,220,228,.85),rgba(201,190,244,.7));
+}
+.char-portrait svg{width:100%;height:100%;display:block}
+.bond-row{display:grid;grid-template-columns:1fr auto;gap:10px;align-items:center;margin-top:10px}
+.vn-stage{
+  display:grid;
+  grid-template-columns:1fr 340px;
+  gap:16px;
+  align-items:stretch;
+}
+.cg-frame{
+  min-height:390px;
+  border-radius:26px;
+  position:relative;
+  overflow:hidden;
+  border:1px solid var(--line);
+  box-shadow:inset 0 0 0 1px rgba(255,255,255,.32);
+}
+body.night .cg-frame{border-color:rgba(255,255,255,.14)}
+.cg-frame svg{width:100%;height:100%;display:block}
+.vn-box{
+  position:absolute;
+  left:18px;
+  right:18px;
+  bottom:18px;
+  padding:16px 18px;
+  border-radius:20px;
+  background:rgba(255,255,255,.78);
+  border:1px solid rgba(255,255,255,.72);
+  backdrop-filter:blur(14px);
+  box-shadow:0 16px 36px rgba(40,28,68,.16);
+  line-height:1.8;
+}
+body.night .vn-box{background:rgba(35,29,52,.78);border-color:rgba(255,255,255,.14)}
+.vn-name{font-weight:900;color:#6a5194;margin-bottom:4px}
+body.night .vn-name{color:#f3d8ff}
+.action-panel{display:grid;gap:12px}
+.action-card{
+  border:1px solid var(--line);
+  border-radius:18px;
+  padding:14px;
+  background:rgba(255,255,255,.6);
+}
+body.night .action-card{background:rgba(255,255,255,.08);border-color:rgba(255,255,255,.14)}
+.action-card h3{margin:0 0 6px;font-size:17px}
+.cost{font-size:12px;color:var(--sub);line-height:1.6;margin:8px 0}
+body.night .cost{color:#d8cde8}
+.gift-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px}
+.gift{
+  text-align:center;
+  padding:13px 8px;
+  border-radius:18px;
+  border:1px solid var(--line);
+  background:rgba(255,255,255,.6);
+  cursor:pointer;
+}
+body.night .gift{background:rgba(255,255,255,.08);border-color:rgba(255,255,255,.14)}
+.gift:hover{transform:translateY(-2px)}
+.gift div:first-child{font-size:26px;margin-bottom:4px}
+.gallery-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
+.cg-card{
+  min-height:210px;
+  border-radius:20px;
+  overflow:hidden;
+  border:1px solid var(--line);
+  background:rgba(255,255,255,.55);
+  position:relative;
+}
+body.night .cg-card{background:rgba(255,255,255,.08);border-color:rgba(255,255,255,.14)}
+.cg-card.locked{filter:grayscale(.9);opacity:.58}
+.cg-card svg{width:100%;height:150px;display:block}
+.cg-caption{padding:12px;line-height:1.5}
+.achievement-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+.achievement{
+  padding:14px;
+  border-radius:18px;
+  border:1px solid var(--line);
+  background:rgba(255,255,255,.62);
+}
+body.night .achievement{background:rgba(255,255,255,.08);border-color:rgba(255,255,255,.14)}
+.achievement.done{background:linear-gradient(135deg,rgba(152,214,188,.42),rgba(255,220,228,.42))}
+.save-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
+.save-slot{
+  border:1px solid var(--line);
+  border-radius:20px;
+  padding:16px;
+  background:rgba(255,255,255,.62);
+}
+body.night .save-slot{background:rgba(255,255,255,.08);border-color:rgba(255,255,255,.14)}
+.toast{
+  position:fixed;
+  left:50%;
+  bottom:24px;
+  transform:translateX(-50%) translateY(20px);
+  opacity:0;
+  padding:12px 18px;
+  border-radius:999px;
+  background:rgba(47,41,64,.92);
+  color:#fff;
+  z-index:20;
+  transition:.25s ease;
+  box-shadow:var(--shadow);
+}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+.petal{
+  position:fixed;
+  top:-30px;
+  width:14px;height:20px;
+  border-radius:70% 20% 70% 20%;
+  background:rgba(237,161,182,.55);
+  animation:fall linear infinite;
+  z-index:0;
+  pointer-events:none;
+}
+@keyframes fall{
+  from{transform:translateY(-40px) rotate(0);opacity:.7}
+  to{transform:translateY(110vh) rotate(360deg);opacity:0}
+}
+.footer{text-align:center;color:var(--sub);padding:18px;line-height:1.8}
+body.night .footer{color:#d8cde8}
+@media(max-width:1100px){
+  .otome-shell{grid-template-columns:230px 1fr}
+  .topbar,.vn-stage{grid-template-columns:1fr}
+  .action-panel{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .character-grid,.achievement-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+@media(max-width:760px){
+  .app{width:min(100% - 14px,1280px)}
+  .otome-shell{grid-template-columns:1fr}
+  .sidebar{position:static;height:auto}
+  .nav{grid-template-columns:repeat(2,minmax(0,1fr));max-height:none}
+  .grid.two,.grid.three,.grid.four,.word-list,.gallery-grid,.save-grid,.gift-grid,.action-panel{grid-template-columns:1fr}
+  .character-grid{grid-template-columns:1fr}
+  .cg-frame{min-height:520px}
+}
+</style>
+</head>
+<body>
+<div id="petals"></div>
+<div class="toast" id="toast"></div>
+
+<div class="app">
+<div class="otome-shell">
+<aside class="sidebar glass">
+  <div class="logo">
+    <span class="badge">✦ Quartz Rehearsal Diary ✦</span>
+    <h1>日语稽古与回廊羁绊</h1>
+    <p>为读懂 JJ 生肉而做的粉丝向学习手帐。原创视觉素材，不使用官方图像。</p>
+  </div>
+
+  <div class="nav-title">Menu</div>
+  <div class="nav">
+    <button class="active" data-panel="home" onclick="openPanel('home')">首页</button>
+    <button data-panel="save" onclick="openPanel('save')">存档 / 读档</button>
+    <button data-panel="voice" onclick="openPanel('voice')">语音设置</button>
+    <button data-panel="kana" onclick="openPanel('kana')">五十音</button>
+    <button data-panel="grammar" onclick="openPanel('grammar')">语法课</button>
+    <button data-panel="words" onclick="openPanel('words')">舞台词库</button>
+    <button data-panel="review" onclick="openPanel('review')">复习匣</button>
+    <button data-panel="quiz" onclick="openPanel('quiz')">小测验</button>
+    <button data-panel="characters" onclick="openPanel('characters')">人物册</button>
+    <button data-panel="romance" onclick="openPanel('romance')">回廊羁绊</button>
+    <button data-panel="gallery" onclick="openPanel('gallery')">CG / 事件回顾</button>
+    <button data-panel="achievements" onclick="openPanel('achievements')">成就</button>
+    <button data-panel="notes" onclick="openPanel('notes')">学习手帐</button>
+  </div>
+
+  <div class="mini-status">
+    <div class="mini-row">
+      <div class="avatar" id="miniAvatar"></div>
+      <div>
+        <b id="miniName">世长创司郎</b>
+        <div class="romaji" id="miniBond">羁绊 Lv.1</div>
+      </div>
+    </div>
+    <p id="miniLine" class="explain" style="margin:10px 0 0">今天也一起开始吧。</p>
+  </div>
+</aside>
+
+<main class="content">
+  <div class="topbar">
+    <section class="hero glass">
+      <h2>把学习做成一场可以回看的日乙。</h2>
+      <p class="lead">
+        不是靠狂点刷好感，而是用学习、复习、邀约、礼物和选择慢慢推进关系。
+        每次行动会消耗行动力或需要条件；事件、CG、回忆与成就会根据你的学习和羁绊解锁。
+      </p>
+      <div class="top-actions">
+        <button onclick="openPanel('romance')">进入回廊</button>
+        <button class="secondary" onclick="openPanel('kana')">今日学习</button>
+        <button class="secondary" onclick="openPanel('save')">存档 / 读档</button>
+        <button class="secondary" onclick="newDay()">进入新的一天</button>
+        <button class="secondary" onclick="toggleNight()">切换昼夜</button>
+      </div>
+    </section>
+
+    <section class="dashboard glass">
+      <div class="date" id="todayDate"></div>
+      <div>
+        <div class="statline"><span>学习等级 Lv.<span id="level">1</span></span><span id="xpText">0 / 100 XP</span></div>
+        <div class="progress"><span id="xpBar"></span></div>
+      </div>
+      <div>
+        <div class="statline"><span>今日专注</span><span id="focusText">0 分</span></div>
+        <div class="progress"><span id="focusBar"></span></div>
+      </div>
+      <div>
+        <div class="statline"><span>行动力</span><span id="apText">6 / 6</span></div>
+        <div class="progress"><span id="apBar"></span></div>
+      </div>
+      <div class="example" id="dailyQuote"></div>
+    </section>
+  </div>
+
+  <section class="panel glass active" id="home">
+    <h2>今日稽古</h2>
+    <p class="lead">
+      今天的目标很小：读出五个假名，理解一个句型，记住三枚词卡。小而稳定，才会真的走到生肉面前。
+    </p>
+    <div class="grid three">
+      <div class="card">
+        <span class="pill">第一幕</span>
+        <h3>日语文字的舞台分工</h3>
+        <p class="explain">平假名负责语法和柔软的声音；片假名负责外来语、强调和特殊语气；汉字负责意义。</p>
+        <div class="example"><b>私は舞台が好きです。</b><br>わたしは ぶたいが すきです。<br>我喜欢舞台。</div>
+        <button class="small" onclick="completeTask('文字分工',15)">记录完成</button>
+      </div>
+      <div class="card">
+        <span class="pill">第二幕</span>
+        <h3>あいうえお</h3>
+        <p class="explain">五个元音是所有发音的骨架。请点朗读，跟读三遍。</p>
+        <div class="example">あ a / い i / う u / え e / お o</div>
+        <button class="small" onclick="speakJapanese('あ、い、う、え、お。')">朗读</button>
+        <button class="small secondary" onclick="completeTask('元音跟读',15)">我跟读了</button>
+      </div>
+      <div class="card">
+        <span class="pill">第三幕</span>
+        <h3>一句能立刻用上的话</h3>
+        <p class="explain">「大丈夫」是“没关系、还好吗、可以”的核心词。剧情里常用于确认、安慰或逞强。</p>
+        <div class="example"><b>大丈夫ですか。</b><br>だいじょうぶですか。<br>你还好吗？</div>
+        <button class="small" onclick="speakJapanese('大丈夫ですか。')">朗读</button>
+        <button class="small secondary" onclick="completeTask('大丈夫',15)">记住了</button>
+      </div>
+    </div>
+  </section>
+
+  <section class="panel glass" id="save">
+    <h2>存档 / 读档</h2>
+    <p class="lead">三个本地存档槽。存档会记录学习进度、羁绊、事件、CG、手帐、错题和当前日期。</p>
+    <div class="save-grid" id="saveSlots"></div>
+  </section>
+
+  <section class="panel glass" id="voice">
+    <h2>语音设置</h2>
+    <p class="lead">iPad 上建议使用 Safari 或 Chrome。第一次朗读前请先点击“启用日语语音”。</p>
+    <div class="grid two">
+      <div class="card">
+        <h3>启用朗读</h3>
+        <p class="explain">若列表为空，通常是系统没有提供日语语音，不是代码坏了。</p>
+        <button onclick="initVoices(true)">启用日语语音</button>
+        <button class="secondary" onclick="speakJapanese('こんにちは。今日も一緒に勉強しましょう。')">测试朗读</button>
+        <div class="example" id="voiceStatus">尚未启用。</div>
+      </div>
+      <div class="card">
+        <h3>选择声音</h3>
+        <select id="voiceSelect" onchange="saveVoiceChoice()"></select>
+        <p class="explain">如果没有日语声音：iPad 可尝试“设置 → 辅助功能 → 朗读内容 → 声音 → 日语”下载语音。</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="panel glass" id="kana">
+    <h2>五十音</h2>
+    <p class="lead">先会读，再会认，最后再会写。点击任意假名可朗读。</p>
+    <div class="toolbar">
+      <button onclick="setKanaMode('hiragana')">平假名</button>
+      <button class="secondary" onclick="setKanaMode('katakana')">片假名</button>
+      <button class="secondary" onclick="practiceKanaRow()">随机练一行</button>
+      <button class="secondary" onclick="completeTask('五十音巡礼',20)">完成今日五十音</button>
+    </div>
+    <div class="card"><table class="kana-table" id="kanaTable"></table></div>
+    <div class="grid two">
+      <div class="card">
+        <h3>稽古提示</h3>
+        <p class="explain" id="kanaTip">平假名像台词的呼吸。先把 あ、い、う、え、お 念稳，再往后走。</p>
+      </div>
+      <div class="card">
+        <h3>今日读音串</h3>
+        <p class="explain">あおい / いえ / うた / かお / すき / こころ / きらきら</p>
+        <button class="small" onclick="speakJapanese('あおい。いえ。うた。かお。すき。こころ。きらきら。')">朗读这一组</button>
+        <button class="small secondary" onclick="addReview('读音串','あおい / いえ / うた / かお / すき / こころ / きらきら')">加入复习匣</button>
+      </div>
+    </div>
+  </section>
+
+  <section class="panel glass" id="grammar">
+    <h2>语法课</h2>
+    <p class="lead">按“看生肉最有用”的顺序来。先不用追求术语完整，先学会拆句子。</p>
+    <div id="grammarList" class="grid"></div>
+  </section>
+
+  <section class="panel glass" id="words">
+    <h2>舞台词库</h2>
+    <p class="lead">围绕舞台、校园、情绪和关系整理的入门词库。不是官方台词摘录，而是帮助你读懂氛围的基础词。</p>
+    <div class="toolbar">
+      <button onclick="filterWords('all')">全部</button>
+      <button class="secondary" onclick="filterWords('stage')">舞台</button>
+      <button class="secondary" onclick="filterWords('school')">校园</button>
+      <button class="secondary" onclick="filterWords('feeling')">情绪</button>
+      <button class="secondary" onclick="filterWords('bond')">关系</button>
+    </div>
+    <div class="word-list" id="wordList"></div>
+  </section>
+
+  <section class="panel glass" id="review">
+    <h2>复习匣</h2>
+    <p class="lead">把暂时记不住的词、句型和读音放进这里。真正的学习不是一次记住，而是反复遇见。</p>
+    <div class="grid two">
+      <div class="card">
+        <h3>添加复习条目</h3>
+        <input id="reviewTitle" placeholder="标题：例如 の 的用法" />
+        <div style="height:10px"></div>
+        <textarea id="reviewBody" placeholder="内容：A の B = A 的 B"></textarea>
+        <div class="toolbar">
+          <button onclick="saveReview()">加入复习匣</button>
+          <button class="secondary" onclick="clearReview()">清空复习匣</button>
+        </div>
+      </div>
+      <div class="card">
+        <h3>今日抽查</h3>
+        <p class="explain" id="reviewRandom">复习匣里有内容后，可以随机抽一条来背。</p>
+        <button onclick="randomReview()">随机抽查</button>
+        <button class="secondary" onclick="completeTask('复习抽查',10)">完成抽查</button>
+      </div>
+    </div>
+    <div class="review-list" id="reviewList"></div>
+  </section>
+
+  <section class="panel glass" id="quiz">
+    <h2>小测验</h2>
+    <p class="lead">错题会自动进入错题本。你不是在被评价，你是在给未来的自己留下路标。</p>
+    <div class="card">
+      <div class="pill" id="quizTag">Kana</div>
+      <div class="quiz-question" id="quizQuestion"></div>
+      <div id="quizOptions"></div>
+      <div class="explain" id="quizFeedback"></div>
+      <div class="toolbar">
+        <button onclick="newQuiz()">下一题</button>
+        <button class="secondary" onclick="completeTask('今日测验',15)">结束本轮</button>
+      </div>
+    </div>
+    <h3>错题本</h3>
+    <div class="note-list" id="wrongList"></div>
+  </section>
+
+  <section class="panel glass" id="characters">
+    <h2>人物册</h2>
+    <p class="lead">选择今日陪伴角色。完成学习、复习、手帐、回廊事件都会提升羁绊；关键事件需要学习进度与羁绊共同达成。</p>
+    <div class="character-grid" id="characterGrid"></div>
+  </section>
+
+  <section class="panel glass" id="romance">
+    <h2>回廊羁绊</h2>
+    <p class="lead">
+      行动有意义：交谈需要行动力，邀约需要今日学习基础，礼物有偏好与每日收益衰减，关键事件需要羁绊等级与学习条件。
+    </p>
+    <div class="vn-stage">
+      <div class="cg-frame" id="sceneCg">
+        <div class="vn-box">
+          <div class="vn-name" id="sceneName">世长创司郎</div>
+          <div id="sceneText">回廊的光线很安静。他站在练习室门边，像是在等你把今天的手帐翻开。</div>
+        </div>
+      </div>
+      <div class="action-panel">
+        <div class="action-card">
+          <h3>今日状态</h3>
+          <div class="cost" id="romanceStatus"></div>
+          <button class="small secondary" onclick="changeScene('hall')">回廊</button>
+          <button class="small secondary" onclick="changeScene('practice')">练习室</button>
+          <button class="small secondary" onclick="changeScene('stage')">空舞台</button>
+          <button class="small secondary" onclick="changeScene('after')">放学后</button>
+        </div>
+        <div class="action-card">
+          <h3>交谈</h3>
+          <div class="cost">消耗 1 行动力。每个话题每日首次更有效。</div>
+          <button class="small" onclick="romanceTalk('study')">谈今天的学习</button>
+          <button class="small secondary" onclick="romanceTalk('worry')">说出不安</button>
+          <button class="small secondary" onclick="romanceTalk('praise')">想被肯定</button>
+          <button class="small secondary" onclick="romanceTalk('quiet')">只想待一会儿</button>
+        </div>
+        <div class="action-card">
+          <h3>邀约</h3>
+          <div class="cost">消耗 2 行动力。需要今日至少完成一项学习任务。</div>
+          <button class="small" onclick="dateEvent('review')">并肩复习</button>
+          <button class="small secondary" onclick="dateEvent('stage')">看一会儿舞台</button>
+          <button class="small secondary" onclick="dateEvent('walk')">黄昏散步</button>
+        </div>
+        <div class="action-card">
+          <h3>关键事件</h3>
+          <div class="cost">需要羁绊等级、学习等级或特定行为。会解锁回忆与 CG。</div>
+          <button class="small" onclick="tryKeyEvent()">触发可用事件</button>
+        </div>
+      </div>
+    </div>
+
+    <h3>送出小物</h3>
+    <div class="gift-grid">
+      <div class="gift" onclick="giveGift('tea')"><div>🍵</div><b>温茶</b><br><span class="romaji">安定</span></div>
+      <div class="gift" onclick="giveGift('script')"><div>📖</div><b>台本便签</b><br><span class="romaji">学习</span></div>
+      <div class="gift" onclick="giveGift('flower')"><div>🌸</div><b>压花书签</b><br><span class="romaji">心意</span></div>
+      <div class="gift" onclick="giveGift('ticket')"><div>🎫</div><b>旧票根</b><br><span class="romaji">回忆</span></div>
+    </div>
+  </section>
+
+  <section class="panel glass" id="gallery">
+    <h2>CG / 事件回顾</h2>
+    <p class="lead">这里收录你解锁过的关键事件和原创风格 CG。锁定项会提示条件。</p>
+    <div class="gallery-grid" id="galleryGrid"></div>
+    <h3>事件回顾</h3>
+    <div class="memory-list" id="memoryList"></div>
+  </section>
+
+  <section class="panel glass" id="achievements">
+    <h2>成就</h2>
+    <p class="lead">学习与羁绊都会计入成就。成就不是压力，只是帮你看见自己走过的路。</p>
+    <div class="achievement-grid" id="achievementGrid"></div>
+  </section>
+
+  <section class="panel glass" id="notes">
+    <h2>学习手帐</h2>
+    <p class="lead">写下今天记住的假名、单词、句型，或者想读懂的生肉句。手帐会保存在本机浏览器。</p>
+    <textarea id="noteInput" placeholder="例：今天记住了「大丈夫ですか」。看到 か 要想到疑问句。"></textarea>
+    <div class="toolbar">
+      <button onclick="saveNote()">保存手帐</button>
+      <button class="secondary" onclick="clearNotes()">清空手帐</button>
+      <button class="danger" onclick="resetAll()">重置全部进度</button>
+    </div>
+    <div class="note-list" id="noteList"></div>
+  </section>
+
+  <div class="footer">
+    Quartz Rehearsal Diary｜粉丝向自用学习工具，不使用官方图像素材。请支持正版作品。<br>
+    目标不是一夜读懂全部，而是每天多听懂一个声音、多认出一个词、多靠近一句台词。
+  </div>
+</main>
+</div>
+</div>
+
+<script>
+const stateKey="quartzOtomeNihongoV3";
+const savePrefix="quartzOtomeSaveSlotV3_";
+
+const defaultState={
+  xp:0,
+  focus:0,
+  ap:6,
+  maxAp:6,
+  day:1,
+  completed:[],
+  dailyActions:{},
+  selectedCharacter:"世长创司郎",
+  affection:{},
+  flags:{},
+  notes:[],
+  reviews:[],
+  wrongs:[],
+  memories:{},
+  unlockedCg:{},
+  achievements:{},
+  scene:"hall",
+  night:false,
+  voiceURI:""
+};
+
+let state=loadState();
+let kanaMode="hiragana";
+let voices=[];
+let currentQuiz=null;
+
+const quotes=[
+  "今天只读懂一句，也足够值得写进手帐。",
+  "先抓住 は、の、です、か。句子的骨架会慢慢露出来。",
+  "你不是在背一门语言，你是在靠近一段很喜欢的故事。",
+  "五十音不是墙，是门。每天推开一点就好。",
+  "读不懂的时候不要责怪自己。舞台从来不是一次排练就完成的。"
+];
+
+const scenes={
+  hall:{title:"练习室前的回廊",tone:"#ffdce4",text:"回廊的光线很安静，练习室门缝里漏出一点声音。你抱着手帐站住，他像是早就知道你今天会来。"},
+  practice:{title:"练习室",tone:"#c9bef4",text:"木地板还留着排练后的温度。镜子映出你翻开的五十音表，也映出他安静等待的身影。"},
+  stage:{title:"空舞台",tone:"#84c7de",text:"没有观众的舞台显得格外宽阔。你站在边缘，忽然觉得那些看不懂的句子，总有一天会变成能理解的心情。"},
+  after:{title:"放学后",tone:"#e6bf63",text:"天色变得柔和，校园里的人声渐渐远去。今天可以不用逞强，只要把记住的一句话放进口袋。"}
+};
+
+const characters=[
+  {
+    name:"世长创司郎",symbol:"奏",color1:"#76b7e5",color2:"#9dd8f0",role:"温柔、细致，总能记住你的节奏",
+    fav:"script",line:"不用急。你愿意重新打开手帐，就已经是在往前走了。",
+    replies:{
+      study:"那我们从最小的一句开始吧。今天只要能读出「大丈夫ですか」，就很好。",
+      worry:"看不懂不是失败。你只是还没有和这些词相处够久，我会陪你多见它们几次。",
+      praise:"你今天有认真坐下来，这件事本身就很了不起。よくできました。",
+      quiet:"嗯。那就不说太多。我在旁边，你慢慢呼吸。"
+    },
+    gifts:{
+      tea:"温度刚好……像你今天的努力一样，不张扬，但确实让人安心。",
+      script:"我会收好的。下次你想练台词时，我们就用这张便签做标记。",
+      flower:"很漂亮。夹在手帐里吧，等你读懂新的句子时再翻出来看。",
+      ticket:"旧票根会记住某一天的心情。今天也会成为那样的一天。"
+    },
+    dates:{
+      review:"他坐在你旁边，把あ行轻轻读了一遍。你跟着念，声音一开始很小，后来终于稳了一点。",
+      stage:"你们站在空舞台边。他说，总有一天，你会读懂那些曾经让你停住的句子。",
+      walk:"黄昏里，你们没有急着说话。只是并肩走着，你忽然觉得今天可以不那么苛责自己。"
+    }
+  },
+  {
+    name:"织卷寿寿",symbol:"鈴",color1:"#f08a6c",color2:"#ffd166",role:"明亮、直接，把练习变成热烈的事",
+    fav:"tea",line:"来吧！今天也大声念出来！错了就再来一次！",
+    replies:{
+      study:"好！先读三遍あいうえお！声音出来了，气势就来了！",
+      worry:"怕什么！你已经开始了啊！开始的人就比昨天的自己强！",
+      praise:"超——厉害！你刚刚那个发音，比前一次稳很多！",
+      quiet:"那我小声一点陪你。等你想继续了，我们再一起念。"
+    },
+    gifts:{
+      tea:"哇，好暖！喝完这个我感觉还能再练一小时！",
+      script:"台本便签！感觉一下子正式起来了！今天就用它标重点！",
+      flower:"好可爱！像演出结束后收到的小花！我会珍惜的！",
+      ticket:"票根啊……感觉里面有很多回忆。下次我们也留下新的吧！"
+    },
+    dates:{
+      review:"他把词卡排成一列，答对一张就轻轻敲一下桌子，像给你打节拍。",
+      stage:"他站在舞台中央朝你挥手，喊你也上来。你笑了，紧张突然少了一半。",
+      walk:"你们边走边念单词。他故意把「好き」念得很响，你差点没接住。"
+    }
+  },
+  {
+    name:"白田美ツ骑",symbol:"月",color1:"#9f86ff",color2:"#cfd8ff",role:"安静、敏锐，像把声音放进月光里",
+    fav:"tea",line:"先听清楚，再开口。语言也需要呼吸。",
+    replies:{
+      study:"把每个假名当成一个音。あ、い、う、え、お，不要急着连起来。",
+      worry:"不会立刻听懂是正常的。耳朵需要时间，心也需要。",
+      praise:"刚才那个音很干净。你有认真听，所以发出来也变了。",
+      quiet:"可以。我不会催你。安静地待一会儿，也算一种练习。"
+    },
+    gifts:{
+      tea:"谢谢。练习后喝温的东西，对嗓子很好。",
+      script:"便签很实用。我会把容易读错的地方写下来。",
+      flower:"颜色很轻。像一句没有说出口，但已经传到的心意。",
+      ticket:"票根会留下声音吗？如果会，我希望它记住今天的安静。"
+    },
+    dates:{
+      review:"他让你闭上眼，只听他读假名。你发现自己开始能分辨し和す的差别。",
+      stage:"空舞台上，他轻轻唱了一小段音阶。你没有完全听懂，却记住了那种透明的感觉。",
+      walk:"你们走得很慢。他偶尔纠正一个发音，声音低而清楚。"
+    }
+  },
+  {
+    name:"睦实介",symbol:"介",color1:"#64c7a1",color2:"#9be7c4",role:"可靠、沉稳，重视基础和长期坚持",
+    fav:"script",line:"基础会在你看不见的地方支撑你。今天也按顺序来。",
+    replies:{
+      study:"先复习昨天，再学今天。记忆需要衔接，不是堆叠。",
+      worry:"焦虑的时候，把任务切小。现在只看一个助词：は。",
+      praise:"完成得很好。不是因为数量多，而是因为你没有跳过基础。",
+      quiet:"可以。保持节奏比勉强推进更重要。"
+    },
+    gifts:{
+      tea:"谢谢。休息安排得好，学习效率才会稳定。",
+      script:"这很适合整理错题。你可以把常错的助词写在上面。",
+      flower:"很细心。学习之外，也要保留能让自己放松的东西。",
+      ticket:"旧票根吗。回顾很重要，它会提醒你为什么开始。"
+    },
+    dates:{
+      review:"他帮你把复习内容分成三类：会了、模糊、不会。你忽然没那么慌了。",
+      stage:"他没有说漂亮话，只告诉你：坚持到能读懂那天，所有基础都会有意义。",
+      walk:"你们讨论明天的计划。三十分钟五十音、十分钟词卡，听起来刚刚好。"
+    }
+  },
+  {
+    name:"高科更文",symbol:"華",color1:"#d88be8",color2:"#f7b2d9",role:"优雅、敏感，懂得把努力也变得漂亮",
+    fav:"flower",line:"学习也可以很美。让每一个假名落在该落的位置。",
+    replies:{
+      study:"今天请记住三个词：舞台、心、約束。它们都很适合写进故事里。",
+      worry:"不安并不难看。你愿意承认它，反而很真诚。",
+      praise:"你刚才认真念的样子很好看。努力本身也有光。",
+      quiet:"那就让安静替我们说话。你不需要时时刻刻都坚强。"
+    },
+    gifts:{
+      tea:"香气很好，像排练间隙短暂而珍贵的休息。",
+      script:"便签的颜色很衬今天的手帐。你很会选。",
+      flower:"真漂亮。它会提醒我，有些心意不必说得太满。",
+      ticket:"票根是时间的饰品。谢谢你把它交给我。"
+    },
+    dates:{
+      review:"他把词卡摆得像花束一样。你们从最漂亮的那张开始背，是「大切」。",
+      stage:"空舞台的光落在他肩上。他问你，今天读懂的那一句，能不能再念给他听。",
+      walk:"风吹过来时，他替你压住手帐。那一页写着「一緒」。"
+    }
+  },
+  {
+    name:"根地黑门",symbol:"劇",color1:"#5f4b8b",color2:"#eda1b6",role:"锋利、跳跃，能把语法拆成机关",
+    fav:"ticket",line:"语言就是剧本里的机关。拆开它，人物的心就会露出来。",
+    replies:{
+      study:"很好！先找主语，再找动作，再找情绪。句子不是墙，是机关箱！",
+      worry:"读不懂？太好了，谜题登场！我们把它切成三段，一段段攻破！",
+      praise:"漂亮！这次你抓到了「の」的关系线，剧情开始显形了！",
+      quiet:"沉默也是台词的一种。那我们就让这一幕留白。"
+    },
+    gifts:{
+      tea:"补给品登场！那么本剧第二幕可以继续推进了！",
+      script:"台本便签！绝妙！语法机关就该贴满标记！",
+      flower:"花啊。很好，象征物出现了，气氛立刻复杂起来。",
+      ticket:"旧票根……这是伏笔吧？一定是伏笔。"
+    },
+    dates:{
+      review:"他把错题称作“剧情伏笔”。你本来有点沮丧，结果被他讲得想立刻重开一题。",
+      stage:"他站在空舞台上，为你的五十音练习即兴编了一段夸张旁白。",
+      walk:"你们一路拆句子。他把「でも」说成命运转折点，你竟然真的记住了。"
+    }
+  },
+  {
+    name:"立花希佐",symbol:"希",color1:"#eda1b6",color2:"#84c7de",role:"与你一起成长，把害怕也带上舞台",
+    fav:"flower",line:"我也会一步一步来。今天，我们都比昨天更靠近一点。",
+    replies:{
+      study:"那我们一起读吧。你读一遍，我也在心里跟着你读一遍。",
+      worry:"我懂那种明明喜欢，却又害怕自己不够好的感觉。可是喜欢本身会带我们往前走。",
+      praise:"你真的很努力。我看见了。不是结果，是你没有放弃的样子。",
+      quiet:"嗯。那就一起待一会儿。什么都不做，也不会让今天失去意义。"
+    },
+    gifts:{
+      tea:"手心暖起来之后，好像心也安定了一点。",
+      script:"我会把今天学会的句子写上去。这样明天也能想起来。",
+      flower:"好温柔的颜色。看到它，会觉得可以再努力一点。",
+      ticket:"票根像是某一天的证明。今天也会成为我们的证明吧。"
+    },
+    dates:{
+      review:"你们轮流读词卡。她读错时也会笑，于是你终于不再害怕出错。",
+      stage:"站在舞台边，她说，如果有一天你读懂了喜欢的台词，一定要告诉她。",
+      walk:"你们分享今天各自害怕的事。说出口后，害怕好像变轻了。"
+    }
+  },
+  {
+    name:"中座秋吏",symbol:"秋",color1:"#8a7f8d",color2:"#e6bf63",role:"严格、克制，但认可真正的坚持",
+    fav:"script",line:"热情很好，但要让它变成习惯。今天也别跳过基础。",
+    replies:{
+      study:"读、写、解释。三步做完，才算真正碰过这个知识点。",
+      worry:"不安不能替你学习。把手帐打开，先完成一项。",
+      praise:"今天的完成度不错。继续保持，不要只靠情绪推进。",
+      quiet:"可以休息。但休息结束后，回来把今天的任务收尾。"
+    },
+    gifts:{
+      tea:"准备得周到，是好习惯。",
+      script:"便签很好。重点不要写太多，写真正会忘的。",
+      flower:"……有心了。放在桌边吧。",
+      ticket:"既然是重要的回忆，就别随便弄丢。"
+    },
+    dates:{
+      review:"他检查你的复习匣，删掉太泛的目标，只留下能执行的三项。",
+      stage:"他让你站直读一句日语。你有点紧张，但读完后他点了点头。",
+      walk:"散步最后，他提醒你回去写手帐。语气严格，却放慢脚步等你。"
+    }
+  }
+];
+
+const kanaRows=[
+  {row:"元音",hira:["あ","い","う","え","お"],kata:["ア","イ","ウ","エ","オ"],roma:["a","i","u","e","o"]},
+  {row:"K 行",hira:["か","き","く","け","こ"],kata:["カ","キ","ク","ケ","コ"],roma:["ka","ki","ku","ke","ko"]},
+  {row:"S 行",hira:["さ","し","す","せ","そ"],kata:["サ","シ","ス","セ","ソ"],roma:["sa","shi","su","se","so"]},
+  {row:"T 行",hira:["た","ち","つ","て","と"],kata:["タ","チ","ツ","テ","ト"],roma:["ta","chi","tsu","te","to"]},
+  {row:"N 行",hira:["な","に","ぬ","ね","の"],kata:["ナ","ニ","ヌ","ネ","ノ"],roma:["na","ni","nu","ne","no"]},
+  {row:"H 行",hira:["は","ひ","ふ","へ","ほ"],kata:["ハ","ヒ","フ","ヘ","ホ"],roma:["ha","hi","fu","he","ho"]},
+  {row:"M 行",hira:["ま","み","む","め","も"],kata:["マ","ミ","ム","メ","モ"],roma:["ma","mi","mu","me","mo"]},
+  {row:"Y 行",hira:["や","","ゆ","","よ"],kata:["ヤ","","ユ","","ヨ"],roma:["ya","","yu","","yo"]},
+  {row:"R 行",hira:["ら","り","る","れ","ろ"],kata:["ラ","リ","ル","レ","ロ"],roma:["ra","ri","ru","re","ro"]},
+  {row:"W 行",hira:["わ","","","","を"],kata:["ワ","","","","ヲ"],roma:["wa","","","","wo/o"]},
+  {row:"拨音",hira:["ん","","","",""],kata:["ン","","","",""],roma:["n","","","",""]}
+];
+
+const grammarLessons=[
+  {title:"1. A は B です：A 是 B",tag:"主干",body:"「は」读作 wa，用来提示主题；「です」是礼貌结尾。看生肉时，先找 は。",examples:["私は学生です。/ 我是学生。","ここは舞台です。/ 这里是舞台。","これは大切です。/ 这是重要的。"],point:"は 前面是主题，后面是说明。"},
+  {title:"2. の：所属、连接、修饰",tag:"关系",body:"「の」常表示“的”，也能连接两个名词。剧情里看人物关系、地点关系时非常常见。",examples:["私の名前 / 我的名字","舞台の上 / 舞台之上","心の中 / 心里"],point:"A の B 通常先理解为 A 的 B。"},
+  {title:"3. か：疑问",tag:"会话",body:"句尾加「か」通常表示疑问。日语问句不一定写问号。",examples:["大丈夫ですか。/ 你还好吗？","行きますか。/ 要去吗？","好きですか。/ 喜欢吗？"],point:"ですか、ますか 都是礼貌疑问。"},
+  {title:"4. が：标记主语、强调对象",tag:"重点",body:"「が」常标记主语，也常用来强调“就是这个”。",examples:["雨が降る。/ 下雨。","歌が好きです。/ 喜欢歌。","私が行きます。/ 我去。"],point:"が 常把注意力放在它前面的词上。"},
+  {title:"5. を：动作作用的对象",tag:"动作",body:"「を」读作 o，常标记动作作用的对象。",examples:["本を読みます。/ 读书。","歌を歌います。/ 唱歌。","台詞を覚えます。/ 记台词。"],point:"A を 做动作 = 对 A 做后面的动作。"},
+  {title:"6. ます：礼貌动词结尾",tag:"动词",body:"动词礼貌形常以「ます」结尾。看到ます，知道句子里有动作。",examples:["読みます。/ 读。","行きます。/ 去。","歌います。/ 唱。"],point:"ます 前面是动词核心。"},
+  {title:"7. たい：想做某事",tag:"愿望",body:"动词ます形去掉ます，加たい，表示“想做”。",examples:["読みたい。/ 想读。","歌いたい。/ 想唱。","もっと知りたい。/ 想知道更多。"],point:"看到たい，先理解成“想……”。"},
+  {title:"8. でも：但是",tag:"转折",body:"「でも」常表示转折。角色下定决心、承认害怕时很常见。",examples:["怖い。でも、行きたい。/ 很害怕。但是想去。","難しい。でも、大丈夫。/ 很难。但是没关系。","疲れた。でも、続ける。/ 累了。但是会继续。"],point:"でも 前后经常出现心情变化。"}
+];
+
+const words=[
+  {jp:"舞台",kana:"ぶたい",cn:"舞台",cat:"stage"},{jp:"稽古",kana:"けいこ",cn:"排练、练习",cat:"stage"},{jp:"脚本",kana:"きゃくほん",cn:"剧本",cat:"stage"},{jp:"台詞",kana:"せりふ",cn:"台词",cat:"stage"},{jp:"歌",kana:"うた",cn:"歌",cat:"stage"},{jp:"役",kana:"やく",cn:"角色、职责",cat:"stage"},{jp:"公演",kana:"こうえん",cn:"演出",cat:"stage"},{jp:"拍手",kana:"はくしゅ",cn:"掌声",cat:"stage"},
+  {jp:"学校",kana:"がっこう",cn:"学校",cat:"school"},{jp:"教室",kana:"きょうしつ",cn:"教室",cat:"school"},{jp:"先輩",kana:"せんぱい",cn:"前辈",cat:"school"},{jp:"後輩",kana:"こうはい",cn:"后辈",cat:"school"},{jp:"仲間",kana:"なかま",cn:"伙伴",cat:"school"},{jp:"練習",kana:"れんしゅう",cn:"练习",cat:"school"},{jp:"放課後",kana:"ほうかご",cn:"放学后",cat:"school"},
+  {jp:"心",kana:"こころ",cn:"心",cat:"feeling"},{jp:"夢",kana:"ゆめ",cn:"梦",cat:"feeling"},{jp:"怖い",kana:"こわい",cn:"害怕",cat:"feeling"},{jp:"嬉しい",kana:"うれしい",cn:"开心",cat:"feeling"},{jp:"悔しい",kana:"くやしい",cn:"不甘心",cat:"feeling"},{jp:"大丈夫",kana:"だいじょうぶ",cn:"没关系、还好吗",cat:"feeling"},{jp:"寂しい",kana:"さびしい",cn:"寂寞",cat:"feeling"},
+  {jp:"好き",kana:"すき",cn:"喜欢",cat:"bond"},{jp:"大切",kana:"たいせつ",cn:"重要、珍贵",cat:"bond"},{jp:"一緒",kana:"いっしょ",cn:"一起",cat:"bond"},{jp:"会いたい",kana:"あいたい",cn:"想见你",cat:"bond"},{jp:"信じる",kana:"しんじる",cn:"相信",cat:"bond"},{jp:"約束",kana:"やくそく",cn:"约定",cat:"bond"},{jp:"そばにいる",kana:"そばにいる",cn:"在身边",cat:"bond"}
+];
+
+const quizPool=[
+  {tag:"Kana",q:"あ 的罗马音是？",options:["a","i","o","ka"],answer:"a"},
+  {tag:"Kana",q:"す 的罗马音是？",options:["shi","su","se","so"],answer:"su"},
+  {tag:"Kana",q:"片假名 ア 对应？",options:["あ","い","う","え"],answer:"あ"},
+  {tag:"Grammar",q:"「A は B です」最接近什么意思？",options:["A 的 B","A 是 B","A 想 B","A 去 B"],answer:"A 是 B"},
+  {tag:"Grammar",q:"句尾的「か」常表示？",options:["疑问","过去","否定","命令"],answer:"疑问"},
+  {tag:"Grammar",q:"「本を読みます」里的 を 标记什么？",options:["动作对象","疑问","所属","转折"],answer:"动作对象"},
+  {tag:"Words",q:"「舞台」读作？",options:["ぶたい","こころ","けいこ","ゆめ"],answer:"ぶたい"},
+  {tag:"Words",q:"「大丈夫ですか」是什么意思？",options:["你还好吗","我要走了","我喜欢你","这是舞台"],answer:"你还好吗"},
+  {tag:"Words",q:"「一緒」是什么意思？",options:["一起","害怕","剧本","掌声"],answer:"一起"},
+  {tag:"Grammar",q:"「私の名前」里的 の 表示？",options:["的","但是","吗","想要"],answer:"的"},
+  {tag:"Grammar",q:"「読みたい」是什么意思？",options:["想读","正在读","不能读","读过了"],answer:"想读"}
+];
+
+const achievements=[
+  {id:"firstStudy",title:"第一次稽古",desc:"完成任意一项学习任务",check:()=>state.completed.length>0},
+  {id:"kanaStart",title:"五十音的门",desc:"完成五十音巡礼",check:()=>state.completed.some(x=>x.includes("五十音巡礼"))},
+  {id:"level3",title:"稳定练习者",desc:"学习等级达到 Lv.3",check:()=>getLevel()>=3},
+  {id:"firstBond",title:"回廊相遇",desc:"进行一次羁绊互动",check:()=>Object.values(state.affection).some(v=>v>0)},
+  {id:"bond2",title:"并肩复习",desc:"任意角色羁绊达到 Lv.2",check:()=>characters.some(c=>bondLevel(c.name)>=2)},
+  {id:"bond4",title:"未说出口的约定",desc:"任意角色羁绊达到 Lv.4",check:()=>characters.some(c=>bondLevel(c.name)>=4)},
+  {id:"firstCg",title:"第一张回忆",desc:"解锁任意 CG",check:()=>Object.keys(state.unlockedCg).length>0},
+  {id:"wrongNote",title:"错题也是伏笔",desc:"记录一次错题",check:()=>state.wrongs.length>0},
+  {id:"diary",title:"手帐第一页",desc:"保存一次学习手帐",check:()=>state.notes.length>0}
+];
+
+function loadState(){try{return {...defaultState,...JSON.parse(localStorage.getItem(stateKey)||"{}")}}catch{return {...defaultState}}}
+function saveState(){localStorage.setItem(stateKey,JSON.stringify(state));renderAllLight()}
+function escapeHtml(str){return String(str).replace(/[&<>"']/g,s=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"}[s]))}
+function toast(text){const el=document.getElementById("toast");el.textContent=text;el.classList.add("show");setTimeout(()=>el.classList.remove("show"),1900)}
+function getSelectedCharacter(){return characters.find(c=>c.name===state.selectedCharacter)||characters[0]}
+function getLevel(){return Math.floor(state.xp/100)+1}
+function getLevelXp(){return state.xp%100}
+function bondLevel(name){const v=state.affection[name]||0;if(v>=180)return 5;if(v>=120)return 4;if(v>=70)return 3;if(v>=30)return 2;return 1}
+function dailyKey(name){return `day${state.day}-${name}`}
+function dailyCount(name){return state.dailyActions[dailyKey(name)]||0}
+function incDaily(name){state.dailyActions[dailyKey(name)]=(state.dailyActions[dailyKey(name)]||0)+1}
+function spendAp(cost){if(state.ap<cost){toast("行动力不足。可以进入新的一天恢复。");return false}state.ap-=cost;return true}
+function addXP(amount){state.xp+=amount;state.focus+=Math.max(1,Math.round(amount/5));unlockAchievements();saveState()}
+function addBond(amount,reason){
+  const name=state.selectedCharacter;
+  state.affection[name]=(state.affection[name]||0)+amount;
+  unlockMemories(name,reason);
+  unlockAchievements();
+}
+
+function renderAllLight(){
+  renderProgress();renderMini();renderCharacters();renderRomance();renderGallery();renderMemories();renderAchievements();renderSaveSlots();
+}
+function openPanel(id){
+  document.querySelectorAll(".panel").forEach(p=>p.classList.remove("active"));
+  document.getElementById(id).classList.add("active");
+  document.querySelectorAll(".nav button").forEach(b=>b.classList.toggle("active",b.dataset.panel===id));
+  if(id==="quiz")newQuiz();
+  if(id==="voice")initVoices(false);
+  if(id==="gallery"){renderGallery();renderMemories()}
+  if(id==="save")renderSaveSlots();
+}
+function toggleNight(){state.night=!state.night;document.body.classList.toggle("night",state.night);saveState()}
+function newDay(){
+  state.day+=1;
+  state.ap=state.maxAp;
+  state.focus=0;
+  state.dailyActions={};
+  toast(`第 ${state.day} 天开始。行动力已恢复。`);
+  saveState();
+}
+function completeTask(name,xp){
+  const id=dailyKey(`study-${name}`);
+  if(state.completed.includes(id)){toast("今天已经记录过这项稽古了");return}
+  state.completed.push(id);
+  state.xp+=xp;
+  state.focus+=Math.max(3,Math.round(xp/4));
+  if(state.ap<state.maxAp)state.ap+=1;
+  addBond(2,`学习：${name}`);
+  unlockAchievements();
+  saveState();
+  toast(`完成「${name}」+${xp} XP，行动力 +1`);
+}
+function renderProgress(){
+  document.getElementById("level").textContent=getLevel();
+  document.getElementById("xpText").textContent=`${getLevelXp()} / 100 XP`;
+  document.getElementById("xpBar").style.width=`${getLevelXp()}%`;
+  document.getElementById("focusText").textContent=`${state.focus} 分`;
+  document.getElementById("focusBar").style.width=`${Math.min(100,state.focus)}%`;
+  document.getElementById("apText").textContent=`${state.ap} / ${state.maxAp}`;
+  document.getElementById("apBar").style.width=`${Math.round(state.ap/state.maxAp*100)}%`;
+}
+function avatarSvg(c){
+  return `<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+    <defs><linearGradient id="g${c.symbol}" x1="0" x2="1" y1="0" y2="1"><stop stop-color="${c.color1}"/><stop offset="1" stop-color="${c.color2}"/></linearGradient></defs>
+    <rect width="100" height="100" rx="24" fill="url(#g${c.symbol})"/>
+    <circle cx="50" cy="38" r="19" fill="rgba(255,255,255,.58)"/>
+    <path d="M22 92c5-24 18-36 28-36s23 12 28 36" fill="rgba(255,255,255,.52)"/>
+    <path d="M27 35c10-24 37-23 47 0-9-8-16-10-24-10s-15 2-23 10z" fill="rgba(50,41,67,.38)"/>
+    <text x="50" y="83" text-anchor="middle" font-size="24" font-weight="900" fill="white">${c.symbol}</text>
+  </svg>`;
+}
+function portraitSvg(c){
+  return `<svg viewBox="0 0 320 160" xmlns="http://www.w3.org/2000/svg">
+    <defs><linearGradient id="p${c.symbol}" x1="0" x2="1" y1="0" y2="1"><stop stop-color="${c.color1}"/><stop offset="1" stop-color="${c.color2}"/></linearGradient></defs>
+    <rect width="320" height="160" fill="url(#p${c.symbol})"/>
+    <circle cx="250" cy="28" r="52" fill="rgba(255,255,255,.22)"/>
+    <path d="M0 120 C80 82 142 144 226 103 C270 82 296 94 320 78 L320 160 L0 160z" fill="rgba(255,255,255,.22)"/>
+    <circle cx="82" cy="63" r="34" fill="rgba(255,255,255,.62)"/>
+    <path d="M35 160c8-48 30-72 47-72s39 24 47 72" fill="rgba(255,255,255,.55)"/>
+    <path d="M42 58c18-40 61-38 81 0-16-13-29-17-42-17s-25 4-39 17z" fill="rgba(47,41,64,.34)"/>
+    <text x="236" y="112" text-anchor="middle" font-size="50" font-weight="900" fill="rgba(255,255,255,.78)">${c.symbol}</text>
+  </svg>`;
+}
+function cgSvg(c,sceneKey){
+  const s=scenes[sceneKey]||scenes.hall;
+  return `<svg viewBox="0 0 800 500" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <linearGradient id="cg${c.symbol}${sceneKey}" x1="0" x2="1" y1="0" y2="1">
+        <stop stop-color="${s.tone}"/><stop offset=".55" stop-color="${c.color2}"/><stop offset="1" stop-color="${c.color1}"/>
+      </linearGradient>
+      <radialGradient id="light${c.symbol}${sceneKey}" cx=".76" cy=".16" r=".55">
+        <stop stop-color="rgba(255,255,255,.86)"/><stop offset="1" stop-color="rgba(255,255,255,0)"/>
+      </radialGradient>
+    </defs>
+    <rect width="800" height="500" fill="url(#cg${c.symbol}${sceneKey})"/>
+    <rect width="800" height="500" fill="url(#light${c.symbol}${sceneKey})"/>
+    <path d="M0 355 C120 300 232 384 370 326 C500 270 640 285 800 228 L800 500 L0 500z" fill="rgba(255,255,255,.24)"/>
+    <path d="M80 95 H720" stroke="rgba(255,255,255,.32)" stroke-width="4"/>
+    <path d="M120 130 H680" stroke="rgba(255,255,255,.22)" stroke-width="2"/>
+    <circle cx="405" cy="180" r="70" fill="rgba(255,255,255,.64)"/>
+    <path d="M292 500c20-146 72-220 113-220s93 74 113 220" fill="rgba(255,255,255,.58)"/>
+    <path d="M320 165c38-82 135-78 170 3-34-30-58-40-86-40s-54 9-84 37z" fill="rgba(47,41,64,.33)"/>
+    <text x="405" y="430" text-anchor="middle" font-size="64" font-weight="900" fill="rgba(255,255,255,.75)">${c.symbol}</text>
+    <text x="42" y="462" font-size="28" font-weight="900" fill="rgba(255,255,255,.78)">${s.title}</text>
+  </svg>`;
+}
+function renderMini(){
+  const c=getSelectedCharacter();
+  document.getElementById("miniAvatar").innerHTML=avatarSvg(c);
+  document.getElementById("miniName").textContent=c.name;
+  document.getElementById("miniBond").textContent=`羁绊 Lv.${bondLevel(c.name)}｜${state.affection[c.name]||0}`;
+  document.getElementById("miniLine").textContent=c.line;
+}
+function renderCharacters(){
+  const grid=document.getElementById("characterGrid");
+  if(!grid)return;
+  grid.innerHTML=characters.map(c=>{
+    const value=state.affection[c.name]||0;
+    const selected=c.name===state.selectedCharacter;
+    return `<div class="card char-card ${selected?"selected":""}" onclick="selectCharacter('${c.name}')">
+      <div class="char-portrait">${portraitSvg(c)}</div>
+      <h3>${c.name}</h3>
+      <p class="explain" style="margin:0">${c.role}</p>
+      <div class="bond-row">
+        <div><small class="sub">羁绊 Lv.${bondLevel(c.name)}｜${value}</small><div class="progress"><span style="width:${Math.min(100,value%100)}%"></span></div></div>
+        <span class="pill">${selected?"陪伴中":"选择"}</span>
+      </div>
+    </div>`;
+  }).join("");
+}
+function selectCharacter(name){state.selectedCharacter=name;saveState();toast(`今日陪伴：${name}`)}
+function renderRomance(){
+  const c=getSelectedCharacter();
+  const s=scenes[state.scene]||scenes.hall;
+  const frame=document.getElementById("sceneCg");
+  if(!frame)return;
+  frame.innerHTML=`${cgSvg(c,state.scene)}
+    <div class="vn-box"><div class="vn-name" id="sceneName">${c.name}</div><div id="sceneText">${s.text}<br><br>${c.name}：「${c.line}」</div></div>`;
+  document.getElementById("romanceStatus").innerHTML=
+    `第 ${state.day} 天｜行动力 ${state.ap}/${state.maxAp}<br>
+    当前角色：${c.name}<br>
+    羁绊 Lv.${bondLevel(c.name)}｜${state.affection[c.name]||0}<br>
+    今日交谈：${dailyCount("talk")} 次｜今日邀约：${dailyCount("date")} 次｜今日送礼：${dailyCount("gift")} 次`;
+}
+function setSceneText(name,text){
+  const el=document.getElementById("sceneText");
+  const nm=document.getElementById("sceneName");
+  if(nm)nm.textContent=name;
+  if(el)el.innerHTML=text;
+}
+function changeScene(scene){state.scene=scene;saveState()}
+function romanceTalk(type){
+  const c=getSelectedCharacter();
+  if(!spendAp(1))return;
+  const count=dailyCount(`talk-${type}`);
+  incDaily(`talk-${type}`);incDaily("talk");
+  const gain=count===0?6:2;
+  addBond(gain,`交谈：${type}`);
+  state.flags[`talked-${type}`]=true;
+  const jp={study:"一緒に勉強しましょう。",worry:"大丈夫。ここにいます。",praise:"よくできました。",quiet:"そばにいます。"}[type];
+  setSceneText(c.name,`${c.name}：「${c.replies[type]}」<br><br><span class="jp">${jp}</span><br><span class="explain">羁绊 +${gain}，行动力 -1。${count>0?"同话题今日收益降低。":"首次话题回应更深入。"}</span>`);
+  saveState();
+}
+function hasStudyToday(){return state.completed.some(x=>x.startsWith(`day${state.day}-study-`))}
+function dateEvent(type){
+  const c=getSelectedCharacter();
+  if(!hasStudyToday()){toast("邀约前，请先完成至少一项今日学习。");return}
+  if(dailyCount("date")>=2){toast("今天已经邀约两次了。留一点期待到明天吧。");return}
+  if(!spendAp(2))return;
+  incDaily("date");incDaily(`date-${type}`);
+  const gain=type==="review"?10:type==="stage"?12:9;
+  addBond(gain,`邀约：${type}`);
+  unlockCg(`${c.name}-${type}`,c.name,type);
+  addMemory(c.name,`邀约：${type}`,c.dates[type]);
+  setSceneText(c.name,`${c.dates[type]}<br><br><span class="explain">羁绊 +${gain}，行动力 -2，已记录事件。</span>`);
+  saveState();
+}
+function giveGift(type){
+  const c=getSelectedCharacter();
+  if(dailyCount("gift")>=3){toast("今天已经送过三次小物了，明天再准备新的吧。");return}
+  if(!spendAp(1))return;
+  incDaily("gift");incDaily(`gift-${type}`);
+  const repeat=dailyCount(`gift-${type}`)-1;
+  let gain=c.fav===type?10:6;
+  gain=Math.max(2,gain-repeat*3);
+  addBond(gain,`礼物：${type}`);
+  setSceneText(c.name,`${c.name}：「${c.gifts[type]}」<br><br><span class="explain">羁绊 +${gain}，行动力 -1。${c.fav===type?"这是他偏爱的小物。":"这份心意被认真收下了。"}</span>`);
+  saveState();
+}
+function tryKeyEvent(){
+  const c=getSelectedCharacter();
+  const lv=bondLevel(c.name);
+  if(lv>=4&&getLevel()>=3&&!state.flags[`key4-${c.name}`]){
+    state.flags[`key4-${c.name}`]=true;
+    addBond(16,"关键事件 Lv4");
+    unlockCg(`${c.name}-promise`,c.name,"stage");
+    addMemory(c.name,"关键事件：未说出口的约定",`空舞台的灯还没有亮起。你读出今天学会的句子，他安静听完，然后说：“下次读懂喜欢的台词时，第一个告诉我。”`);
+    setSceneText(c.name,`空舞台的灯还没有亮起。你读出今天学会的句子，他安静听完，然后说：“下次读懂喜欢的台词时，第一个告诉我。”<br><br><span class="explain">关键事件完成：羁绊 +16，CG 已解锁。</span>`);
+  }else if(lv>=2&&hasStudyToday()&&!state.flags[`key2-${c.name}`]){
+    state.flags[`key2-${c.name}`]=true;
+    addBond(12,"关键事件 Lv2");
+    unlockCg(`${c.name}-review`,c.name,"practice");
+    addMemory(c.name,"关键事件：第一次并肩复习",`你们把同一张词卡读到终于顺口。那一刻，你发现学习不是一个人硬撑，也可以是一段被陪伴的日常。`);
+    setSceneText(c.name,`你们把同一张词卡读到终于顺口。那一刻，你发现学习不是一个人硬撑，也可以是一段被陪伴的日常。<br><br><span class="explain">关键事件完成：羁绊 +12，CG 已解锁。</span>`);
+  }else{
+    toast("暂时没有可触发事件。提示：完成今日学习、提升羁绊或学习等级。");
+  }
+  saveState();
+}
+function addMemory(name,title,text){
+  if(!state.memories[name])state.memories[name]=[];
+  if(!state.memories[name].some(m=>m.title===title)){
+    state.memories[name].push({title,text,date:new Date().toLocaleString("zh-CN")});
+  }
+}
+function unlockMemories(name,reason){
+  const lv=bondLevel(name);
+  if(lv>=3)addMemory(name,"回忆：逐渐熟悉的距离",`因为「${reason||"日常"}」，你们之间的距离又近了一点。现在你已经能自然地在他面前打开学习手帐。`);
+  if(lv>=5)addMemory(name,"回忆：灯光落下之前",`你忽然明白，学习不是为了追上谁，而是为了更靠近自己珍惜的故事。`);
+}
+function unlockCg(id,name,scene){state.unlockedCg[id]={id,name,scene,date:new Date().toLocaleString("zh-CN")}}
+function renderGallery(){
+  const grid=document.getElementById("galleryGrid");
+  if(!grid)return;
+  const unlocked=Object.values(state.unlockedCg);
+  const base=characters.slice(0,6).map(c=>({id:`base-${c.name}`,name:c.name,scene:"hall",base:true}));
+  const items=[...unlocked,...base];
+  grid.innerHTML=items.map(item=>{
+    const c=characters.find(x=>x.name===item.name)||characters[0];
+    const locked=item.base&&!state.unlockedCg[`baseUnlock-${item.name}`]&&bondLevel(item.name)<2;
+    return `<div class="cg-card ${locked?"locked":""}">
+      ${cgSvg(c,item.scene)}
+      <div class="cg-caption"><b>${locked?"未解锁":item.name}</b><br><span class="romaji">${locked?"条件：该角色羁绊 Lv.2":(item.date||"人物印象")}</span></div>
+    </div>`;
+  }).join("");
+}
+function renderMemories(){
+  const list=document.getElementById("memoryList");
+  if(!list)return;
+  const all=[];
+  Object.keys(state.memories).forEach(name=>state.memories[name].forEach(m=>all.push({name,...m})));
+  if(!all.length){list.innerHTML=`<div class="memory">还没有事件回顾。完成邀约或关键事件后会记录在这里。</div>`;return}
+  list.innerHTML=all.map(m=>`<div class="memory"><b>${escapeHtml(m.name)}｜${escapeHtml(m.title)}</b><br>${escapeHtml(m.text)}<br><span class="romaji">${escapeHtml(m.date||"")}</span></div>`).join("");
+}
+
+/* Study systems */
+function renderKana(){
+  const table=document.getElementById("kanaTable");
+  const key=kanaMode==="hiragana"?"hira":"kata";
+  let html="<tr><th>行</th><th>a</th><th>i</th><th>u</th><th>e</th><th>o</th></tr>";
+  kanaRows.forEach(row=>{
+    html+=`<tr><th>${row.row}</th>`;
+    row[key].forEach((char,i)=>{
+      html+=char?`<td class="kana-cell" onclick="speakJapanese('${char}')"><div class="kana">${char}</div><div class="romaji">${row.roma[i]}</div></td>`:"<td></td>";
+    });
+    html+="</tr>";
+  });
+  table.innerHTML=html;
+}
+function setKanaMode(mode){
+  kanaMode=mode;renderKana();
+  document.getElementById("kanaTip").textContent=mode==="hiragana"?"平假名常用于语法、读音和日语原生词。先把它当作台词的呼吸。":"片假名常用于外来语、强调、拟声词。看到片假名时，先想“这可能是外来语或特殊语气”。";
+}
+function practiceKanaRow(){
+  const row=kanaRows[Math.floor(Math.random()*5)];
+  const chars=row[kanaMode==="hiragana"?"hira":"kata"].filter(Boolean);
+  speakJapanese(chars.join("、"));
+  toast(`随机练习：${row.row}`);
+}
+function renderGrammar(){
+  const list=document.getElementById("grammarList");
+  list.innerHTML=grammarLessons.map((lesson,index)=>`
+    <div class="card">
+      <span class="pill">${lesson.tag}</span>
+      <h3>${lesson.title}</h3>
+      <p class="explain">${lesson.body}</p>
+      ${lesson.examples.map(ex=>`<div class="example">${ex}</div>`).join("")}
+      <p class="explain"><b>拆句提示：</b>${lesson.point}</p>
+      <button class="small" onclick="completeTask('语法 ${index+1}',12)">学过这一节</button>
+      <button class="small secondary" onclick="addReview('${escapeHtml(lesson.title)}','${escapeHtml(lesson.point)}')">加入复习匣</button>
+    </div>
+  `).join("");
+}
+function filterWords(cat){
+  const list=document.getElementById("wordList");
+  const filtered=cat==="all"?words:words.filter(w=>w.cat===cat);
+  list.innerHTML=filtered.map(w=>`
+    <div class="word">
+      <b>${w.jp}</b>
+      <div class="romaji">${w.kana}</div>
+      <p class="explain" style="margin:8px 0 10px">${w.cn}</p>
+      <button class="small secondary" onclick="speakJapanese('${w.jp}')">朗读</button>
+      <button class="small secondary" onclick="addReview('${w.jp}','${w.kana}｜${w.cn}')">加入复习</button>
+    </div>
+  `).join("");
+}
+function addReview(title,body){
+  state.reviews.unshift({title,body,date:new Date().toLocaleString("zh-CN")});
+  addXP(3);toast("已加入复习匣");renderReview();
+}
+function saveReview(){
+  const title=document.getElementById("reviewTitle").value.trim();
+  const body=document.getElementById("reviewBody").value.trim();
+  if(!title||!body){toast("请写标题和内容");return}
+  state.reviews.unshift({title,body,date:new Date().toLocaleString("zh-CN")});
+  document.getElementById("reviewTitle").value="";
+  document.getElementById("reviewBody").value="";
+  addXP(6);renderReview();
+}
+function renderReview(){
+  const list=document.getElementById("reviewList");
+  if(!state.reviews.length){list.innerHTML=`<div class="note-item">复习匣还是空的。可以从语法课或词库加入第一条。</div>`;return}
+  list.innerHTML=state.reviews.map((r,i)=>`<div class="note-item"><b>${escapeHtml(r.title)}</b><br>${escapeHtml(r.body)}<br><span class="romaji">${r.date}</span><br><button class="small secondary" onclick="removeReview(${i})">移除</button></div>`).join("");
+}
+function removeReview(i){state.reviews.splice(i,1);saveState();renderReview()}
+function clearReview(){if(!confirm("确定清空复习匣吗？"))return;state.reviews=[];saveState();renderReview()}
+function randomReview(){
+  if(!state.reviews.length){toast("复习匣还没有内容");return}
+  const r=state.reviews[Math.floor(Math.random()*state.reviews.length)];
+  document.getElementById("reviewRandom").innerHTML=`<b>${escapeHtml(r.title)}</b><br>${escapeHtml(r.body)}`;
+}
+
+/* Quiz */
+function newQuiz(){
+  currentQuiz=quizPool[Math.floor(Math.random()*quizPool.length)];
+  document.getElementById("quizTag").textContent=currentQuiz.tag;
+  document.getElementById("quizQuestion").textContent=currentQuiz.q;
+  document.getElementById("quizFeedback").textContent="";
+  const shuffled=[...currentQuiz.options].sort(()=>Math.random()-.5);
+  document.getElementById("quizOptions").innerHTML=shuffled.map(opt=>`<button class="option" onclick="answerQuiz(this,'${opt}')">${opt}</button>`).join("");
+}
+function answerQuiz(button,value){
+  const buttons=document.querySelectorAll(".option");
+  buttons.forEach(b=>b.disabled=true);
+  if(value===currentQuiz.answer){
+    button.classList.add("correct");
+    document.getElementById("quizFeedback").textContent="答对了。不是运气，是你已经见过它、记住它了。+10 XP";
+    addXP(10);
+  }else{
+    button.classList.add("wrong");
+    buttons.forEach(b=>{if(b.textContent===currentQuiz.answer)b.classList.add("correct")});
+    document.getElementById("quizFeedback").textContent=`正确答案是「${currentQuiz.answer}」。这题已进入错题本。`;
+    state.wrongs.unshift({q:currentQuiz.q,answer:currentQuiz.answer,date:new Date().toLocaleString("zh-CN")});
+    saveState();renderWrongs();
+  }
+}
+function renderWrongs(){
+  const list=document.getElementById("wrongList");
+  if(!state.wrongs.length){list.innerHTML=`<div class="note-item">还没有错题。错题不是失败，是复习入口。</div>`;return}
+  list.innerHTML=state.wrongs.map(w=>`<div class="note-item"><b>${escapeHtml(w.q)}</b><br>答案：${escapeHtml(w.answer)}<br><span class="romaji">${w.date}</span></div>`).join("");
+}
+
+/* Voice */
+function initVoices(force){
+  if(!("speechSynthesis" in window)){document.getElementById("voiceStatus").textContent="当前浏览器不支持 Web Speech 朗读。建议换 Safari / Chrome。";return}
+  voices=speechSynthesis.getVoices();renderVoiceSelect();
+  if(force)speakJapanese("こんにちは。日语语音已经启用。今日も一緒に勉強しましょう。");
+  if(!voices.length){
+    document.getElementById("voiceStatus").textContent="正在等待浏览器载入语音。如果列表仍为空，请刷新或检查系统日语语音。";
+    setTimeout(()=>{voices=speechSynthesis.getVoices();renderVoiceSelect()},500);
+    setTimeout(()=>{voices=speechSynthesis.getVoices();renderVoiceSelect()},1200);
+  }
+}
+function renderVoiceSelect(){
+  const select=document.getElementById("voiceSelect");
+  if(!select)return;
+  const jaVoices=voices.filter(v=>String(v.lang).toLowerCase().startsWith("ja"));
+  const usable=jaVoices.length?jaVoices:voices;
+  select.innerHTML=usable.map(v=>`<option value="${escapeHtml(v.voiceURI)}">${escapeHtml(v.name)}（${escapeHtml(v.lang)}）</option>`).join("");
+  if(state.voiceURI)select.value=state.voiceURI;
+  const status=document.getElementById("voiceStatus");
+  if(status){
+    if(jaVoices.length)status.textContent=`已找到 ${jaVoices.length} 个日语声音。若没有声音，请确认设备未静音。`;
+    else if(voices.length)status.textContent="找到了语音，但没有日语声音。可以朗读，但发音可能不自然。建议安装日语语音。";
+    else status.textContent="尚未读取到语音列表。请点击启用，或刷新页面后再试。";
+  }
+}
+function saveVoiceChoice(){state.voiceURI=document.getElementById("voiceSelect").value;saveState()}
+function pickVoice(){if(!voices.length)voices=speechSynthesis.getVoices();return voices.find(v=>v.voiceURI===state.voiceURI)||voices.find(v=>String(v.lang).toLowerCase().startsWith("ja"))||voices[0]||null}
+function speakJapanese(text){
+  if(!("speechSynthesis" in window)){toast("当前浏览器不支持朗读");return}
+  voices=speechSynthesis.getVoices();
+  const utter=new SpeechSynthesisUtterance(text);
+  const voice=pickVoice();
+  if(voice)utter.voice=voice;
+  utter.lang=voice?voice.lang:"ja-JP";
+  utter.rate=.72;utter.pitch=1.02;
+  speechSynthesis.cancel();speechSynthesis.speak(utter);
+  if(!voice)toast("未检测到语音。请先进入语音设置启用。");
+}
+if("speechSynthesis" in window)speechSynthesis.onvoiceschanged=()=>initVoices(false);
+
+/* Notes, saves, achievements */
+function saveNote(){
+  const input=document.getElementById("noteInput");
+  const text=input.value.trim();
+  if(!text){toast("先写一点今天记住的内容吧");return}
+  state.notes.unshift({date:new Date().toLocaleString("zh-CN"),text});
+  input.value="";
+  addXP(8);renderNotes();toast("手帐已保存 +8 XP");
+}
+function renderNotes(){
+  const list=document.getElementById("noteList");
+  if(!state.notes.length){list.innerHTML=`<div class="note-item">还没有手帐。今天可以先写：我记住了 あいうえお。</div>`;return}
+  list.innerHTML=state.notes.map(n=>`<div class="note-item"><b>${n.date}</b><br>${escapeHtml(n.text)}</div>`).join("");
+}
+function clearNotes(){if(!confirm("确定清空学习手帐吗？"))return;state.notes=[];saveState();renderNotes()}
+function resetAll(){
+  if(!confirm("确定重置全部进度、羁绊、手帐和错题吗？"))return;
+  state={...defaultState,affection:{},notes:[],reviews:[],wrongs:[],memories:{},unlockedCg:{},achievements:{},dailyActions:{}};
+  localStorage.removeItem(stateKey);
+  saveState();renderNotes();renderReview();renderWrongs();toast("已重置");
+}
+function renderSaveSlots(){
+  const box=document.getElementById("saveSlots");
+  if(!box)return;
+  box.innerHTML=[1,2,3].map(i=>{
+    const raw=localStorage.getItem(savePrefix+i);
+    let info="空存档";
+    if(raw){try{const s=JSON.parse(raw);info=`第 ${s.day||1} 天｜Lv.${Math.floor((s.xp||0)/100)+1}｜${s.selectedCharacter||"未选择"}`}catch{}}
+    return `<div class="save-slot"><h3>Slot ${i}</h3><p class="explain">${info}</p><button class="small" onclick="saveSlot(${i})">保存</button> <button class="small secondary" onclick="loadSlot(${i})">读取</button> <button class="small danger" onclick="deleteSlot(${i})">删除</button></div>`;
+  }).join("");
+}
+function saveSlot(i){localStorage.setItem(savePrefix+i,JSON.stringify(state));toast(`已保存到 Slot ${i}`);renderSaveSlots()}
+function loadSlot(i){
+  const raw=localStorage.getItem(savePrefix+i);
+  if(!raw){toast("这个存档槽是空的");return}
+  state={...defaultState,...JSON.parse(raw)};
+  localStorage.setItem(stateKey,JSON.stringify(state));
+  fullRender();
+  toast(`已读取 Slot ${i}`);
+}
+function deleteSlot(i){if(!confirm(`删除 Slot ${i}？`))return;localStorage.removeItem(savePrefix+i);renderSaveSlots()}
+function unlockAchievements(){achievements.forEach(a=>{if(a.check())state.achievements[a.id]=true})}
+function renderAchievements(){
+  const box=document.getElementById("achievementGrid");
+  if(!box)return;
+  unlockAchievements();
+  box.innerHTML=achievements.map(a=>`<div class="achievement ${state.achievements[a.id]?"done":""}"><span class="pill">${state.achievements[a.id]?"已达成":"未达成"}</span><h3>${a.title}</h3><p class="explain">${a.desc}</p></div>`).join("");
+}
+
+/* Init */
+function initPetals(){
+  const box=document.getElementById("petals");
+  box.innerHTML="";
+  for(let i=0;i<18;i++){
+    const p=document.createElement("div");
+    p.className="petal";
+    p.style.left=`${Math.random()*100}%`;
+    p.style.animationDuration=`${8+Math.random()*9}s`;
+    p.style.animationDelay=`${Math.random()*8}s`;
+    p.style.transform=`scale(${.7+Math.random()*.8})`;
+    box.appendChild(p);
+  }
+}
+function initDateAndQuote(){
+  const now=new Date();
+  document.getElementById("todayDate").textContent=now.toLocaleDateString("zh-CN",{year:"numeric",month:"long",day:"numeric",weekday:"long"});
+  document.getElementById("dailyQuote").textContent=quotes[now.getDate()%quotes.length];
+}
+function fullRender(){
+  document.body.classList.toggle("night",state.night);
+  initDateAndQuote();
+  renderProgress();
+  renderKana();
+  renderGrammar();
+  filterWords("all");
+  renderReview();
+  renderWrongs();
+  renderCharacters();
+  renderMini();
+  renderRomance();
+  renderGallery();
+  renderMemories();
+  renderAchievements();
+  renderNotes();
+  renderSaveSlots();
+  newQuiz();
+  initVoices(false);
+}
+function init(){initPetals();fullRender()}
+init();
+</script>
+</body>
+</html>
